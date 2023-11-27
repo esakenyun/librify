@@ -49,15 +49,17 @@ class FrontendController extends Controller
     public function detailBook($book_id)
     {
         $books = Book::find($book_id);
-        $publishers = Publisher::all();
-        $ratings = $books->ratings;
-        $bookfile = $books->bookfile;
 
-        if ($books) {
-            return view('frontend.book.bookdetails', compact('books', 'publishers', 'ratings', 'bookfile'));
-        } else {
+        if (!$books) {
             return abort(404);
         }
+
+        // Menggunakan paginate pada relasi ratings dengan jumlah satu per halaman
+        $ratings = $books->ratings()->paginate(1);
+        $publishers = Publisher::all();
+        $bookfile = $books->bookfile;
+
+        return view('frontend.book.bookdetails', compact('books', 'publishers', 'ratings', 'bookfile'));
     }
 
     public function searchBook(Request $request)

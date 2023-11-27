@@ -134,19 +134,15 @@
                                 <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-size="10"
                                     class="font-bold">
                                     {{ strtoupper(substr($rating->user->name, 0, 2)) }}
-
                                 </text>
                             </svg>
-
                             <div>
                                 <p>Name: {{ $rating->user->name }}</p>
-
                                 <div x-data="{ rating: {{ $rating->rating ?? 0 }} }" class="mb-4 flex justify-center">
                                     @for ($n = 1; $n <= 5; $n++)
                                         <label for="rating{{ $i }}" class="cursor-pointer text-3xl md:text-4xl"
                                             :class="{
-                                                'text-amber-400': {{ $n }} <=
-                                                    rating,
+                                                'text-amber-400': {{ $n }} <= rating,
                                                 'text-gray-300': {{ $n }} > rating
                                             }"
                                             readonly>&#9733;</label>
@@ -160,7 +156,6 @@
                             @else
                             @endif
                         </div>
-
                     </div>
                     <hr class="h-px mx-3 bg-gray-900 border-0 mt-5 md:mx-12">
                 @empty
@@ -168,6 +163,9 @@
                     <hr class="h-px mx-3 bg-gray-900 border-0 mt-5 md:mx-12">
                 @endforelse
 
+                <div class="mx- mt-2 ">
+                    {{ $ratings->onEachSide(2)->links() }}
+                </div>
 
             </div>
         </div>
